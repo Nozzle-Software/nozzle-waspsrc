@@ -15,4 +15,5 @@ jobs:
     - uses: actions/checkout@v4
     
     - run: cd WaspSrc
+    - run: ls # debug line
     - run: make
