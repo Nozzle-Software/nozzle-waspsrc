@@ -1,8 +1,8 @@
-#WaspSrc Engine
+# WaspSrc Engine
 
 The Official WaspSrc SDK, forked off the quake engine
 
-##Installation
+## Installation
 for installation, go to the WaspSrc directory (`./nozzle-waspsrc/WaspSrc`) and run `make`, then execute `./WaspSrc <arguments>`
 
 > [!NOTE]
