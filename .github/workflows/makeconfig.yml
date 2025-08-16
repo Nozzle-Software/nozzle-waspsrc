@@ -13,5 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - run: sudo dpkg --add-architecture i386 && sudo apt update
     - run:  sudo apt-get install gcc-multilib g++-multilib libpng-dev && sudo apt install libx11-dev:i386 libxext-dev:i386
     - run: cd WaspSrc && make clean && make
