@@ -13,5 +13,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run:  sudo apt-get install gcc-multilib g++-multilib
+    - run:  sudo apt-get install gcc-multilib g++-multilib && sudo apt install x11-utils x11-apps
     - run: cd WaspSrc && make clean && make
