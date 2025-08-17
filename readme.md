@@ -5,7 +5,7 @@
 The Official WaspSrc SDK, forked off the quake.x11 engine
 
 ## Prequisites
-if not already, make sure your system is multi-arch: `sudo dpkg --add-architecture i386 && sudo apt update` then `sudo apt update`
+if not already, make sure your system is multi-arch: `sudo dpkg --add-architecture i386` then `sudo apt update`
 then, install the required dependencies with:
 ```bash
 sudo apt update && sudo apt install \
