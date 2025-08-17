@@ -17,6 +17,7 @@ sudo apt update && sudo apt install \
 
 * if you are on arch linux, the dependency installation process is a little complex, so feel free to execute the `archintall.sh`.
 * And, for you lazy people on ubuntu, just execute the `ubuntuinstall.sh`. YOUR WELCOME.
+* oh... also make sure the files have the correct permissions, so use `chmod +x archinstall.sh | ubuntuinstall.sh`
 
 *** More support of different operating systems will come soon! ***
 
