@@ -13,6 +13,13 @@ sudo apt update && sudo apt install \
   libx11-dev:i386 libxext-dev:i386
 ```
 
+** OR **
+
+if you are on arch linux, the dependency installation process is a little complex, so feel free to execute the `archintall.sh`.
+And, for you lazy people on ubuntu, just execute the `ubuntuinstall.sh`. YOUR WELCOME.
+
+*** More support of different operating systems will come soon! ***
+
 ## Install pak files
 install the pak0.pak file from Internet Archive ([here](https://archive.org/download/quake-shareware-pak/PAK0.PAK)), and put it in the `nozzle` folder. (the file had to be removed due to copyright 💾, and don't forget to rename the file name into lowercase!)
 
