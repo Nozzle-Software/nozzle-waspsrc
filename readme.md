@@ -1,5 +1,7 @@
 # WaspSrc Engine
 
+[![Workflow Status](https://img.shields.io/github/actions/workflow/status/Nozzle-Software/nozzle-waspsrc/makeconfig.yml?style=for-the-badge&color=B4B4EF&labelColor=302D41&logo=https://raw.githubusercontent.com/Nozzle-Software/nozzle-waspsrc/master/res/quake-logo.png&logoColor=D9E0EE)](https://github.com/Nozzle-Software/nozzle-waspsrc/actions)
+
 The Official WaspSrc SDK, forked off the quake.x11 engine
 
 ## Prequisites
