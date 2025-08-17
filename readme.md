@@ -12,7 +12,7 @@ sudo apt update && sudo apt install \
 ```
 
 ## Install pak files
-install the pak0.pak file from Internet Archive ([here](https://archive.org/download/quake_dos/Quake.zip/id1%2Fpak0.pak)), and put it in the `nozzle` folder. (the file had to be removed due to copyright 💾 )
+install the pak0.pak file from Internet Archive ([here](https://archive.org/download/quake-shareware-pak/PAK0.PAK)), and put it in the `nozzle` folder. (the file had to be removed due to copyright 💾, and don't forget to rename the file name into lowercase!)
 
 ## Main Installation
 for installation, go to the WaspSrc directory (`./nozzle-waspsrc/WaspSrc`) and run `make wasp | all | (leave empty)`, then execute `./WaspSrc <arguments>`
