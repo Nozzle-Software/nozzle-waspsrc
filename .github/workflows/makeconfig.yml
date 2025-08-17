@@ -15,5 +15,5 @@ jobs:
     - uses: actions/checkout@v4
     - run: sudo dpkg --add-architecture i386 && sudo apt update
     - run:  sudo apt-get install gcc-multilib g++-multilib libpng-dev && sudo apt install libx11-dev:i386 libxext-dev:i386
-    - run: cd ./WaspSrc/nozzle/ && wget -o pak0.pak https://archive.org/download/Quake_802/zQUAKE_SW-play.zip/ID1%2FPAK0.PAK
+    - run: cd ./WaspSrc/nozzle/ && wget -o pak0.pak https://archive.org/download/quake_dos/Quake.zip/id1%2Fpak0.pak
     - run: cd ./WaspSrc && make clean && make && ./WaspSrc -nosound # for the most safest execution ;)
