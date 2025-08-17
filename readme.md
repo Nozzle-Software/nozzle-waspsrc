@@ -12,7 +12,7 @@ sudo apt update && sudo apt install \
 ```
 
 ## Install pak files
-install the pak0.pak file from Internet Archive ([here](https://archive.org/download/Quake_802/zQUAKE_SW-play.zip/ID1%2FPAK0.PAK)), and put it in the `nozzle` folder
+install the pak0.pak file from Internet Archive ([here](https://archive.org/download/Quake_802/zQUAKE_SW-play.zip/ID1%2FPAK0.PAK)), and put it in the `nozzle` folder. (the file had to be removed due to copyright 💾 )
 
 ## Main Installation
 for installation, go to the WaspSrc directory (`./nozzle-waspsrc/WaspSrc`) and run `make wasp | all | (leave empty)`, then execute `./WaspSrc <arguments>`
