@@ -22,6 +22,8 @@ sudo pacman -S --noconfirm \
   libx11 \
   libxext \
   lib32-libx11 \
-  lib32-libxext
+  lib32-libxext \
+  python3 \
+  scons
 
 echo "archinstall: All packages installed successfully."
