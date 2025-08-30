@@ -25,6 +25,8 @@ sudo apt update && sudo apt install \
 
 ## Build Process
 * For some other operating systems, there is a SConstruct file for compilation, so just use `scons` (or, for linux especially, you can use Makefile by: `make`, but scons is recommended.)
+> [!WARNING]
+> Don't even think of compiling with `make` then cleaning with `scons`. It angers me >:(
 
 ## Install pak files
 install the pak0.pak file from Internet Archive ([here](https://archive.org/download/quake-shareware-pak/PAK0.PAK)), and put it in the `nozzle` folder. (the file had to be removed due to copyright 💾. And don't forget to rename the file name into lowercase!)
