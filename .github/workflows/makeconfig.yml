@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: WaspSrc_Engine_Build
 
 on:
   push:
