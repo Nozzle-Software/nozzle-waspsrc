@@ -1,0 +1,23 @@
+# SConstruct file
+
+# Also don't screw up this file
+
+# Define the program name and sources
+program_name = 'WaspSrc'
+program_sources = Glob('*.c')
+
+# Define the CFLAGS
+env = Environment(
+    CPPPATH=['.'],
+    CFLAGS=['-Wall', '-m32', '-O2', '-fcommon'],
+    LIBS=['X11', 'Xext', 'm'],
+    LIBPATH=['/usr/lib'],
+    LINKFLAGS=['-m32']
+)
+
+# Build the executable
+env.Program(target=program_name, source=program_sources)
+
+# Define the clean and distclean tasks
+env.Clean(target=[program_name, '*.o'])
+env.Alias('distclean', program_name)
