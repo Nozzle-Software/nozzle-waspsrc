@@ -19,6 +19,7 @@ sudo apt update && sudo apt install \
 * And, for you lazy people on ubuntu, just execute the `ubuntuinstall.sh`. YOUR WELCOME.
 * oh... also make sure the files have the correct permissions, so use `chmod +x archinstall.sh | ubuntuinstall.sh`
 * If you are on windows, the waspsrc engine has not been known to run there, so just use wsl ubuntu :3
+* For some other operating systems, there is a SConstruct file for compilation, so just use `scons`
 
 *** More support of different operating systems will come soon! ***
 
