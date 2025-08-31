@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - run: sudo dpkg --add-architecture i386 && sudo apt update
-    - run:  sudo apt-get install gcc-multilib g++-multilib libpng-dev && sudo apt install libx11-dev:i386 libxext-dev:i386
+    - run:  sudo chmod +x ubuntuinstall.sh && ./Ubuntu install.sh
     - run: cd ./WaspSrc/nozzle/ && wget -O pak0.pak https://archive.org/download/quake-shareware-pak/PAK0.PAK && test -f ./pak0.pak || exit 1
     - run: cd ./WaspSrc && scons --clean && scons
     # && ./WaspSrc -nosound -dedicated +map start -condebug
