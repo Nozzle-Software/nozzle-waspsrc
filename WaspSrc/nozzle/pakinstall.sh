@@ -1,3 +1,3 @@
 # Pak installation because I don't believe you can do it yourself...
 
-wget https://archive.org/download/quake-shareware-pak/PAK0.PAK -o pak0.pak
+wget https://archive.org/download/quake-shareware-pak/PAK0.PAK -O pak0.pak
