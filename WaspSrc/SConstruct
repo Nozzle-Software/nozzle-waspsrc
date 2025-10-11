@@ -1,4 +1,6 @@
-# SConstruct file for WaspSrc Engine
+# -*- mode: python -*-
+# WaspSrc build script
+# SConstruct file
 
 # I love scones :3
 # Very yummy.
