@@ -16,21 +16,26 @@ sudo apt update && sudo apt install \
 
 ** OR **
 
-* if you are on arch linux, the dependency installation process is a little complex, so feel free to execute the `archintall.sh`.
-* And, for people on ubuntu, just execute the `ubuntuinstall.sh`.
-* oh... also make sure the files have the correct permissions, so use `chmod +x archinstall.sh | ubuntuinstall.sh`
-* If you are on windows, the waspsrc engine has not been known to run there, so just use wsl ubuntu :3
+* Use the `make depinstall_ub` or the `make depinstall_arch`
+* manually run the `./dep_utils/ubuntuinstall.sh` or `./dep_utils/archinstall.sh` (if not already, chmod them!)
+* I hope the windows compilation doesn't burn in hell (R.I.P. `WaspSrc.exe`)
 
 *** More support of different operating systems will come soon! ***
 
 ## Build Process
-* For common operating systems, there is a SConstruct file for compilation, so just use `scons`. for linux specific installations, go to the WaspSrc directory (`./nozzle-waspsrc/WaspSrc`) and run `make wasp | all | (leave empty)`, then execute `./WaspSrc <arguments>`
+* For some other [UNIX based] operating systems, there is a SConstruct file for compilation, so just use `scons` (or, for linux especially, you can use Makefile by: `make`, but scons is recommended.)
 
 > [!WARNING]
-> Don't even think of compiling with `make` then cleaning with `scons`. It angers me >:(
+> I wouldn't recomend making with `make` and / or cleaning with `scons`
 
 ## Install pak files
 install the pak0.pak file from Internet Archive ([here](https://archive.org/download/quake-shareware-pak/PAK0.PAK)), and put it in the `nozzle` folder. (the file had to be removed due to copyright 💾. And don't forget to rename the file name into lowercase!)
 
+-- OR -- 
+future pak0.pak files would be made specificly for the WaspSrc engine! (Use those in the future. Sadly it is the present...)
+
+## Main Installation
+for installation, go to the WaspSrc directory (`./nozzle-waspsrc/WaspSrc`) and run `make wasp | all | (leave empty)`, then execute `./WaspSrc <arguments>`
+
 > [!NOTE]
-> when running, if your computer doesn't support /dev/dsp, then execute `./WaspSrc -nosound <arguments>`
+> Audio support and migration from /dev/dsp/ is in progress!
