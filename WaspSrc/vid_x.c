@@ -447,8 +447,8 @@ void	VID_Init (unsigned char *palette)
    int template_mask;
    
    ignorenext=0;
-   vid.width = 320;
-   vid.height = 200;
+   vid.width = 1000; // width & height of window here!
+   vid.height = 600;
    vid.maxwarpwidth = WARP_WIDTH;
    vid.maxwarpheight = WARP_HEIGHT;
    vid.numpages = 2;

@@ -1,43 +1,81 @@
-# SConstruct file
+# SConstruct file for WaspSrc Engine
 
 # I love scones :3
 # Very yummy.
 
-# Import necessary functions
-from SCons.Script import *
+# --- Environment Setup ---
+# Create a default environment
+env = Environment()
 
-# Define the program name and sources
+# --- Source Files and Program Name ---
+# Define the name of the program and the source files.
+# SCons automatically finds the .c files, but explicitly listing them
+# often provides clearer intent and better cross-platform compatibility.
 program_name = 'WaspSrc'
-program_sources = Glob('*.c')
+SourceFiles = [
+    # Replace 'file1.c', 'file2.c' etc. with the actual list of *.c files,
+    # or let SCons find them by only specifying the directory (e.g., '.')
+    # The 'glob' function is the SCons equivalent of 'wildcard' if you need it.
+    # e.g., SourceFiles = Glob('*.c')
+    # For a direct equivalent to `program_C_SRCS := $(wildcard *.c)`:
+    SourceFiles = Glob('*.c')
+]
 
-# Define the environment with necessary flags
-env = Environment(
-    CC='gcc',
-    CXX='g++',
-    CPPPATH=['.'],
-    CFLAGS=['-Wall', '-m32', '-O2', '-fcommon', '-fdiagnostics-color=always'],
-    CXXFLAGS=['-Wall', '-m32', '-O2', '-fcommon', '-fdiagnostics-color=always'],
-    LIBS=['X11', 'Xext', 'm'],
-    LIBPATH=['/usr/lib'],
-    LINKFLAGS=['-m32'],
-    JOBS='1',
-)
+# --- Compiler Flags (CFLAGS) ---
+# The CFLAGS from the Makefile are set here.
+env.Append(CFLAGS=['-Wall', '-m32', '-O2', '-fcommon'])
 
-# Function to print the required environment variables
-def print_env(env):
-    # Variables to print (the ones explicitly set)
-    required_vars = ['CC', 'CXX', 'CPPPATH', 'CFLAGS', 'CXXFLAGS', 'LIBS', 'LIBPATH', 'LINKFLAGS', 'JOBS']
-    for var in required_vars:
-        if var in env:
-            print(f"{var}={env[var]}")
+# --- Linker Flags and Libraries (LDFLAGS and LIBS) ---
+# The libraries are specified using the LIBS variable, which SCons handles correctly.
+# The linker flag '-m32' is added to LINKFLAGS.
+Libraries = ['X11', 'Xext', 'm', 'asound']
+env.Append(LIBS=Libraries)
+env.Append(LINKFLAGS=['-m32'])
 
-# Print the required environment variables
-print("Loading build configuration:")
-print_env(env)
+# --- Main Build Target ---
+# The Program() builder is the equivalent of the primary rule 'WaspSrc: $(program_OBJS)'
+# and the linking step. SCons automatically handles compiling the source files
+# into objects and then linking them into the executable.
+Program(env, target=program_name, source=SourceFiles)
 
-# Build the executable
-env.Program(program_name, program_sources)
+# --- Auxiliary Targets (Non-build actions) ---
 
-# Define the clean and distclean tasks
-env.Clean(program_name, '*.o')
-env.Alias('distclean', ['clean', program_name, '*.o'])
+# SCons uses the 'Alias' and 'Command' builders for actions that don't
+# directly produce a built file, like 'clean' or 'depinstall_ub'.
+
+# **1. Clean Target**
+# SCons has a built-in 'Clean' function that handles file removal.
+Clean(program_name) # Automatically cleans the executable
+# Add the object files (SCons automatically determines these)
+Clean(SourceFiles) # SCons will automatically clean the intermediate .o files
+
+# **2. Dependency Installation Targets**
+# These use the 'Command' builder to execute the shell scripts.
+
+ubtinst_script = '../dep_utils/ubuntuinstall.sh'
+archinst_script = '../dep_utils/archinstall.sh'
+
+# Alias for 'depinstall_ub'
+env.Alias('depinstall_ub', [
+    # Command to ensure the script is executable
+    env.Command(ubtinst_script, ubtinst_script, Chmod('$TARGET', 0o755)),
+    # Command to run the script
+    env.Command(None, ubtinst_script, './' + archinst_script) # NOTE: Makefile runs ARCHINST here
+])
+
+# Alias for 'depinsall_arch'
+env.Alias('depinsall_arch', [
+    # Command to ensure the script is executable
+    env.Command(archinst_script, archinst_script, Chmod('$TARGET', 0o755)),
+    # Command to run the script
+    env.Command(None, archinst_script, './' + archinst_script)
+])
+
+# **3. Distribution Clean Target**
+# The 'distclean' target simply calls 'clean'.
+env.Alias('distclean', 'clean')
+
+# **4. Default/All Target**
+# SCons builds all targets defined with `Program()`, `Library()`, etc., by default.
+# The 'wasp' alias is created for compatibility with the Makefile.
+env.Alias('wasp', program_name)
