@@ -16,6 +16,6 @@ jobs:
     - run: sudo dpkg --add-architecture i386 && sudo apt update
     - run:  sudo chmod +x dep_utils/ubuntuinstall.sh && dep_utils/archinstall.sh
     - run: cd ./WaspSrc/nozzle/ && wget -O pak0.pak https://archive.org/download/quake-shareware-pak/PAK0.PAK && test -f ./pak0.pak || exit 1
-    - run: cd ./WaspSrc && scons --clean && scons
+    - run: ls && scons --clean && scons
     # && ./WaspSrc -nosound -dedicated +map start -condebug
  # # for the most safest execution ;)
