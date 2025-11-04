@@ -5,79 +5,55 @@
 # I love scones :3
 # Very yummy.
 
-# --- Environment Setup ---
-# Create a default environment
-env = Environment()
+# SConstruct — equivalent to WaspSrc Makefile
 
-# --- Source Files and Program Name ---
-# Define the name of the program and the source files.
-# SCons automatically finds the .c files, but explicitly listing them
-# often provides clearer intent and better cross-platform compatibility.
+import os
+from glob import glob
+
+# Program name
 program_name = 'WaspSrc'
-SourceFiles = [
-    # Replace 'file1.c', 'file2.c' etc. with the actual list of *.c files,
-    # or let SCons find them by only specifying the directory (e.g., '.')
-    # The 'glob' function is the SCons equivalent of 'wildcard' if you need it.
-    # e.g., SourceFiles = Glob('*.c')
-    # For a direct equivalent to `program_C_SRCS := $(wildcard *.c)`:
-    SourceFiles = Glob('*.c')
-]
 
-# --- Compiler Flags (CFLAGS) ---
-# The CFLAGS from the Makefile are set here.
-env.Append(CFLAGS=['-Wall', '-m32', '-O2', '-fcommon'])
+# Source files
+program_c_srcs = glob('*.c')
 
-# --- Linker Flags and Libraries (LDFLAGS and LIBS) ---
-# The libraries are specified using the LIBS variable, which SCons handles correctly.
-# The linker flag '-m32' is added to LINKFLAGS.
-Libraries = ['X11', 'Xext', 'm', 'asound']
-env.Append(LIBS=Libraries)
-env.Append(LINKFLAGS=['-m32'])
+# Libraries
+program_libraries = ['X11', 'Xext', 'm', 'asound']
 
-# --- Main Build Target ---
-# The Program() builder is the equivalent of the primary rule 'WaspSrc: $(program_OBJS)'
-# and the linking step. SCons automatically handles compiling the source files
-# into objects and then linking them into the executable.
-Program(env, target=program_name, source=SourceFiles)
+# Compiler and linker flags
+CFLAGS = ['-Wall', '-m32', '-O2', '-fcommon']
+LDFLAGS = ['-m32'] + [f'-l{lib}' for lib in program_libraries]
 
-# --- Auxiliary Targets (Non-build actions) ---
+# Define build environment
+env = Environment(
+    CC='gcc',
+    CFLAGS=CFLAGS,
+    LINKFLAGS=LDFLAGS
+)
 
-# SCons uses the 'Alias' and 'Command' builders for actions that don't
-# directly produce a built file, like 'clean' or 'depinstall_ub'.
+# Build target
+program = env.Program(target=program_name, source=program_c_srcs)
 
-# **1. Clean Target**
-# SCons has a built-in 'Clean' function that handles file removal.
-Clean(program_name) # Automatically cleans the executable
-# Add the object files (SCons automatically determines these)
-Clean(SourceFiles) # SCons will automatically clean the intermediate .o files
+# Custom build aliases (equivalent to .PHONY targets)
+env.Alias('all', program)
+env.Alias('wasp', program)
+env.Alias('clean', None, Delete([program_name] + [src.replace('.c', '.o') for src in program_c_srcs]))
 
-# **2. Dependency Installation Targets**
-# These use the 'Command' builder to execute the shell scripts.
+# Dependency install aliases (Ubuntu and Arch)
+def depinstall_ub(target, source, env):
+    os.chmod('../dep_utils/ubuntuinstall.sh', 0o755)
+    os.system('../dep_utils/ubuntuinstall.sh')
 
-ubtinst_script = '../dep_utils/ubuntuinstall.sh'
-archinst_script = '../dep_utils/archinstall.sh'
+def depinstall_arch(target, source, env):
+    os.chmod('../dep_utils/archinstall.sh', 0o755)
+    os.system('../dep_utils/archinstall.sh')
 
-# Alias for 'depinstall_ub'
-env.Alias('depinstall_ub', [
-    # Command to ensure the script is executable
-    env.Command(ubtinst_script, ubtinst_script, Chmod('$TARGET', 0o755)),
-    # Command to run the script
-    env.Command(None, ubtinst_script, './' + archinst_script) # NOTE: Makefile runs ARCHINST here
-])
+env.Alias('depinstall_ub', None, depinstall_ub)
+env.Alias('depinstall_arch', None, depinstall_arch)
 
-# Alias for 'depinsall_arch'
-env.Alias('depinsall_arch', [
-    # Command to ensure the script is executable
-    env.Command(archinst_script, archinst_script, Chmod('$TARGET', 0o755)),
-    # Command to run the script
-    env.Command(None, archinst_script, './' + archinst_script)
-])
+# distclean alias (clean + remove intermediates)
+def distclean(target, source, env):
+    for f in [program_name] + [src.replace('.c', '.o') for src in program_c_srcs]:
+        if os.path.exists(f):
+            os.remove(f)
 
-# **3. Distribution Clean Target**
-# The 'distclean' target simply calls 'clean'.
-env.Alias('distclean', 'clean')
-
-# **4. Default/All Target**
-# SCons builds all targets defined with `Program()`, `Library()`, etc., by default.
-# The 'wasp' alias is created for compatibility with the Makefile.
-env.Alias('wasp', program_name)
+env.Alias('distclean', None, distclean)
