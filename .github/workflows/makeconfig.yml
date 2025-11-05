@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run: sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install scons
+    - run: sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install scons && sudo apt-get install libc6-dev
     - run:  sudo chmod +x dep_utils/ubuntuinstall.sh && dep_utils/archinstall.sh
     - run: cd ./WaspSrc/nozzle/ && wget -O pak0.pak https://archive.org/download/quake-shareware-pak/PAK0.PAK && test -f ./pak0.pak || exit 1
     - run: cd WaspSrc/ && scons --clean && scons
