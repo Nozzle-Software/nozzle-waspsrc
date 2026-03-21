@@ -1332,7 +1332,7 @@ void(entity targ, entity attacker) ClientObituary =
 				if (targ.deathtype == "grenade")
 					bprint (PRINT_MEDIUM," tries to put the pin back in\n");
 				else if (targ.deathtype == "rocket")
-					bprint (PRINT_MEDIUM," becomes bored with life\n");
+					bprint (PRINT_MEDIUM," got rekt\n");
 				else if (targ.weapon == 64 && targ.waterlevel > 1)
 				{
 					if (targ.watertype == CONTENT_SLIME)
